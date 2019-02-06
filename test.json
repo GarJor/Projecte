@@ -1,0 +1,36 @@
+{
+    "classe0": [
+        [
+            "hola"
+        ], 
+        [
+            "c\u00f3mo te llamas"
+        ], 
+        [
+            "que hora es"
+        ], 
+        [
+            "que tiempo hace", 
+            "va a llover hoy"
+        ]
+    ], 
+    "classe1": [
+        [
+            "buenas noches", 
+            "apaga la luz"
+        ], 
+        [
+            "baja la persiana"
+        ]
+    ], 
+    "classe2": [
+        [
+            "pet"
+        ]
+    ], 
+    "classe3": [
+        [
+            "pis"
+        ]
+    ]
+}
