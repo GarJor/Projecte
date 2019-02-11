@@ -81,11 +81,11 @@ int main() {
   sockaddr_in client;
   socklen_t clientSize = sizeof(client);
 
-
+while (true) {
   int clientSck = accept(serverSck, (sockaddr*)&client, &clientSize);
   if(clientSck == -1) {
     cerr << "Problem with client connecting" << endl;
-    return -1;
+    //return -1;
   }
 
 
@@ -102,8 +102,8 @@ int main() {
     enviar(clientSck,resp.second);
 
   }
-
-  close(clientSck);
+}
+  //close(clientSck);
 
 
 

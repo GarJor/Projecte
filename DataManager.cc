@@ -100,20 +100,20 @@ pair<string, string> DataManager::guess(string toGuess, double llindar) {
   this->matchedClass = "nul";
   this->matchedIndex = -1;
   int index = 0;
-  string mtchclas = "nul";
+  //string mtchclas = "nul";
   double track = 0.0;
   for(string clas : this->classes) {
-    cerr << "#C " << clas << endl;
+    //cerr << "#C " << clas << endl;
     index = 0;
     for(auto list : this->InpData[clas]) {
       //for(int i = 0 ; i < list.size(); ++i) {
 
       for(string frase : list){
-        cerr << index << endl;
+        //cerr << index << endl;
         double val = this->similarity(toGuess, frase);
-        cerr << toGuess << " || " << frase << " :: " << val << endl;
+        //cerr << toGuess << " || " << frase << " :: " << val << endl;
         if(val >= llindar && val > track ) {
-          cerr << "ENTERED on " << index << endl;
+          //cerr << "ENTERED on " << index << endl;
           this->matchedClass = clas;
           this->matchedIndex = index;
 
@@ -124,9 +124,9 @@ pair<string, string> DataManager::guess(string toGuess, double llindar) {
       ++index;
     }
   }
-  cerr << index << endl;
-  if (index == -1) return make_pair("nul", "No te he entendido");
-  return make_pair(this->matchedClass, getOutByClass(this->matchedClass)[index]);
+  //cerr << this->matchedIndex << endl;
+  if (this->matchedIndex == -1) { return make_pair("nul", "No te he entendido"); }
+  return make_pair(this->matchedClass, getOutByClass(this->matchedClass)[this->matchedIndex]);
 }
 
 
