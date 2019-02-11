@@ -41,7 +41,7 @@ class DataManager {
     /*
     returns matched_class, output for an incomming input
     */
-    pair<string, string> guess(string toGuess);
+    pair<string, string> guess(string toGuess, double llindra);
 
     /*
     returns de matrix of strings stored with the classname class
