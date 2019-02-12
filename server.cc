@@ -9,13 +9,19 @@
 #include <stdio.h>
 
 #define PORT 5500
+<<<<<<< HEAD
 #define LLINDAR 0.4
 
+=======
+>>>>>>> 335531d276ab1c7aa2f120b0d23ed6ef15a2c2a4
 
 using namespace std;
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 335531d276ab1c7aa2f120b0d23ed6ef15a2c2a4
 string rebre(int clientsocket) {
   char buf[4096];
 
@@ -31,7 +37,11 @@ string rebre(int clientsocket) {
     cerr << "Client disconnected" << endl;
 
   }
+<<<<<<< HEAD
   string frase = string(buf, 0, bytesRecv);  //AQUIIIIIII
+=======
+  string frase = string(buf, 0, bytesRecv-2);
+>>>>>>> 335531d276ab1c7aa2f120b0d23ed6ef15a2c2a4
   return frase;
 }
 
@@ -47,6 +57,7 @@ void enviar(int clientsocket, string resposta) {
 
 
 
+<<<<<<< HEAD
 int tractar_frase(string frase, DataManager& dm, int clientSck) {
 
   pair<string, string> resp = dm.guess(frase, LLINDAR);
@@ -69,6 +80,15 @@ int main() {
   //create DataManager
   DataManager dm("entrada", "salida");
 
+=======
+
+
+
+int main() {
+  DataManager dm("entrada", "salida");
+  // cout << dm.getFileName(true) << endl;
+  // cout << dm.getFileName(false) << endl;
+>>>>>>> 335531d276ab1c7aa2f120b0d23ed6ef15a2c2a4
 
   //create socket
   int serverSck = socket(AF_INET, SOCK_STREAM, 0);
@@ -81,8 +101,13 @@ int main() {
   sockaddr_in hint;
   hint.sin_family = AF_INET;
   hint.sin_port = htons(PORT);
+<<<<<<< HEAD
   //inet_pton(AF_INET, "0.0.0.0", &hint.sin_addr);
   hint.sin_addr.s_addr=INADDR_ANY;
+=======
+  inet_pton(AF_INET, "0.0.0.0", &hint.sin_addr);
+  //hint.sin_addr.s_addr=INADDR_ANY;
+>>>>>>> 335531d276ab1c7aa2f120b0d23ed6ef15a2c2a4
 
   if (bind(serverSck, (sockaddr*) &hint, sizeof(hint)) == -1) {
     cerr << "Can't bind to IP/port" << endl;
@@ -97,6 +122,7 @@ int main() {
 
   //Accept a call
   sockaddr_in client;
+<<<<<<< HEAD
   socklen_t clientSize = sizeof(hint);
   int clientSck;
 while (true) {
@@ -117,6 +143,31 @@ while (true) {
 
 
 
+=======
+  socklen_t clientSize = sizeof(client);
+
+while (true) {
+  int clientSck = accept(serverSck, (sockaddr*)&client, &clientSize);
+  if(clientSck == -1) {
+    cerr << "Problem with client connecting" << endl;
+    //return -1;
+  }
+
+
+  while (true) {
+
+    string fromClient = rebre(clientSck);
+    cout << "RECEIVED: " << fromClient << endl;
+
+
+    // tractar_frase();
+    pair<string, string> resp = dm.guess(fromClient, 0.4);
+
+
+    enviar(clientSck,resp.second);
+
+  }
+>>>>>>> 335531d276ab1c7aa2f120b0d23ed6ef15a2c2a4
 }
   //close(clientSck);
 
