@@ -1,5 +1,6 @@
 //created by Jordi Garcia Aguilar
 #include "DataManager.hh"
+
 #include <fstream>
 #include <algorithm>
 
@@ -51,10 +52,12 @@ void DataManager::load() {
       readClass = false;
     }
     else if (line == "}") {
-      if(push) content.push_back(list);
+      content.push_back(list);
       list.clear();
       readClass = true;
       this->InpData[this->classes[this->classes.size()-1]] = content;
+      content.clear();
+      push = false;
     }
     else if (line[0] == '-'){
       if(push) content.push_back(list);
@@ -93,9 +96,40 @@ void DataManager::load() {
 }
 
 
-// pair<string, string> DataManager::guess(string toGuess) {
-//
-// }
+pair<string, string> DataManager::guess(string toGuess, double llindar) {
+  this->matchedClass = "nul";
+  this->matchedIndex = -1;
+  int index = 0;
+  //string mtchclas = "nul";
+  double track = 0.0;
+  for(string clas : this->classes) {
+    //cerr << "#C " << clas << endl;
+    index = 0;
+    for(auto list : this->InpData[clas]) {
+      //for(int i = 0 ; i < list.size(); ++i) {
+
+      for(string frase : list){
+        //cerr << index << endl;
+        double val = this->similarity(toGuess, frase);
+        //cerr << toGuess << " || " << frase << " :: " << val << endl;
+        if(val >= llindar && val > track ) {
+          //cerr << "ENTERED on " << index << endl;
+          this->matchedClass = clas;
+          this->matchedIndex = index;
+
+          if(val == 1.0) return make_pair(clas, getOutByClass(clas)[index]);
+        }
+
+      }
+      ++index;
+    }
+  }
+  //cerr << this->matchedIndex << endl;
+  if (this->matchedIndex == -1) { return make_pair("nul", "No te he entendido"); }
+  return make_pair(this->matchedClass, getOutByClass(this->matchedClass)[this->matchedIndex]);
+}
+
+
 double DataManager::similarity(const string& s1, const string& s2) {
 	const size_t len1 = s1.size(), len2 = s2.size();
 	vector<vector<unsigned int>> d(len1 + 1, vector<unsigned int>(len2 + 1));
