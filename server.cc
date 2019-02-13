@@ -57,9 +57,13 @@ int tractar_frase(string frase, DataManager& dm, int clientSck) {
   else if(resp.first == "Script"){
     char command[1024];
     sprintf(command,"scripts/%s",resp.second.c_str());
-    system(command);
+    if(fork()==0){
+      dup2(clientSck, 1);
+      dup2(clientSck ,2);
+      execlp(command, command, NULL);
   }
-
+  }
+  else enviar(clientSck,"Lo siento, no te he entendido");
   return 0;
 }
 
