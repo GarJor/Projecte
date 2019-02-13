@@ -115,7 +115,7 @@ int main() {
       //tractem input
       tractar_frase(fromClient, dm, clientSck);
 
-
+      close(clientSck);
 
   }
 
