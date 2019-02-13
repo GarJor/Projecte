@@ -1,0 +1,27 @@
+Interact
+{
+- 0
+hola
+- 1
+cómo te llamas
+- 2
+qué hora es
+- 3
+qué tiempo hace
+va a llover hoy
+- 4
+gora eta
+- 5
+Jordi
+Oriol
+Joaquim
+Dolors
+Raul
+Josep
+Carme
+}
+Script
+{
+- 0
+apaga la luz
+}
