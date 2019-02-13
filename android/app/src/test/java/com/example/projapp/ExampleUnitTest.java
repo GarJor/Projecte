@@ -1,4 +1,4 @@
-package assistent.cliassist;
+package com.example.projapp;
 
 import org.junit.Test;
 
