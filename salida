@@ -1,0 +1,16 @@
+Interact
+{
+- 0
+Hola, cómo estas?
+- 1
+De momento no tengo nombre
+- 2
+Nunca es tarde para cumplir tus sueños
+- 3
+Mira por la ventana
+}
+Script
+{
+- 0
+apagar_luz.sh
+}
