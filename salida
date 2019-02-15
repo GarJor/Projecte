@@ -13,4 +13,6 @@ Script
 {
 - 0
 apagar_luz.sh
+- 1
+download_basic.sh
 }
