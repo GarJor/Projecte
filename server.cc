@@ -53,7 +53,9 @@ int tractar_frase(string frase, DataManager& dm, int clientSck) {
 
 
   //diferents tractaments segon la classe de inp/out
-  if(resp.first == "Interact") enviar(clientSck,string("2 ",0,2).append(resp.second));
+
+  if(resp.first == "Interact") enviar(clientSck,string("2",0,1).append(resp.second));
+
   else if(resp.first == "Script"){
     char command[1024];
     sprintf(command,"scripts/%s",resp.second.c_str());
@@ -64,7 +66,9 @@ int tractar_frase(string frase, DataManager& dm, int clientSck) {
       execlp(command, command, NULL);
   }
   }
-  else enviar(clientSck,"2 Lo siento, no te he entendido");
+
+  else enviar(clientSck,"2Lo siento, no te he entendido");
+
   return 0;
 }
 
