@@ -26,7 +26,7 @@ vector< vector<string> > DataManager::getInpByClass(string clase){
 
 }
 
-vector<string>  DataManager::getOutByClass(string clase){
+vector< vector<string> >  DataManager::getOutByClass(string clase){
   return this->OutData[clase];
 }
 
@@ -75,18 +75,27 @@ void DataManager::load() {
 
   // check stream status
   if (!output_stream) cerr << "Can't open output file!";
+  content.clear();
+  list.clear();
+    push = false;
   int index = -1;
   int end = this->classes.size()-1;
-  // extract all the text from the output file
+  // extract all the text from the input file
   while (getline(output_stream, line)) {
-
     if (index < end && line == this->classes[index+1]) ++index;
     else if (line == "}") {
-      this->OutData[this->classes[index]] = list;
+      content.push_back(list);
       list.clear();
+      this->OutData[this->classes[index]] = content;
+      content.clear();
+      push = false;
     }
-    else if (line[0] != '-' && line[0] != '{'){
-
+    else if (line[0] == '-'){
+      if(push) content.push_back(list);
+      list.clear();
+      push = true;
+    }
+    else {
       list.push_back(line);
     }
 
@@ -96,7 +105,7 @@ void DataManager::load() {
 }
 
 
-pair<string, string> DataManager::guess(string toGuess, double llindar) {
+pair<string, vector<string>> DataManager::guess(string toGuess, double llindar) {
   this->matchedClass = "nul";
   this->matchedIndex = -1;
   int index = 0;
@@ -125,7 +134,7 @@ pair<string, string> DataManager::guess(string toGuess, double llindar) {
     }
   }
   //cerr << this->matchedIndex << endl;
-  if (this->matchedIndex == -1) { return make_pair("nul", "No te he entendido"); }
+  if (this->matchedIndex == -1) { return make_pair("nul", vector<string>(1,"No te he entendido")); }
   return make_pair(this->matchedClass, getOutByClass(this->matchedClass)[this->matchedIndex]);
 }
 

@@ -11,7 +11,7 @@ class DataManager {
     string matchedClass;
     int matchedIndex;
     map< string, vector< vector<string> > > InpData;
-    map< string, vector<string> > OutData;
+    map< string, vector< vector<string> > > OutData;
     vector<string> classes;
 
 
@@ -41,7 +41,7 @@ class DataManager {
     /*
     returns matched_class, output for an incomming input
     */
-    pair<string, string> guess(string toGuess, double llindra);
+    pair<string, vector<string>> guess(string toGuess, double llindra);
 
     /*
     returns de matrix of strings stored with the classname class
@@ -51,7 +51,7 @@ class DataManager {
     /*
     returns de matrix of strings stored with the classname class
     */
-    vector<string>  getOutByClass(string clase) ;
+    vector< vector<string> > getOutByClass(string clase) ;
 
     vector<string>  getClassNames();
 
