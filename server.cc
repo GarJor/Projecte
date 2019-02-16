@@ -49,16 +49,14 @@ void enviar(int clientsocket, string resposta) {
 
 int tractar_frase(string frase, DataManager& dm, int clientSck) {
 
-  pair<string, string> resp = dm.guess(frase, LLINDAR);
+  pair<string, vector<string> > resp = dm.guess(frase, LLINDAR);
 
 
   //diferents tractaments segon la classe de inp/out
-
-  if(resp.first == "Interact") enviar(clientSck,string("2",0,1).append(resp.second));
-
+  if(resp.first == "Interact") enviar(clientSck,string("2",0,1).append(resp.second[0]));
   else if(resp.first == "Script"){
     char command[1024];
-    sprintf(command,"scripts/%s",resp.second.c_str());
+    sprintf(command,"scripts/%s",resp.second[0].c_str());
     if(fork()==0){
       dup2(clientSck, 0);
       dup2(clientSck, 1);
