@@ -64,7 +64,9 @@ int tractar_frase(string frase, DataManager& dm, int clientSck) {
       execlp(command, command, NULL);
   }
   }
+
   else enviar(clientSck,"2Lo siento, no te he entendido");
+
   return 0;
 }
 
