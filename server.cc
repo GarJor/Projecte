@@ -7,6 +7,8 @@
 #include <string.h>
 #include <string>
 #include <stdio.h>
+#include <sys/wait.h>
+
 
 #define PORT 5500
 #define LLINDAR 0.4
@@ -53,19 +55,29 @@ int tractar_frase(string frase, DataManager& dm, int clientSck) {
 
 
   //diferents tractaments segon la classe de inp/out
-  if(resp.first == "Interact") enviar(clientSck,string("2",0,1).append(resp.second[0]));
+  if(resp.first == "Interact") enviar(clientSck,string("1",0,1).append(resp.second[random()%resp.second.size()]));
   else if(resp.first == "Script"){
     char command[1024];
+    char test[1024];
+    strcpy(test, &frase.c_str()[20]);
+    // printf(test);
     sprintf(command,"scripts/%s",resp.second[0].c_str());
+    // printf(command);
+	// system(command);
     if(fork()==0){
-      dup2(clientSck, 0);
-      dup2(clientSck, 1);
-      dup2(clientSck ,2);
-      execlp(command, command, NULL);
-  }
+      //dup2(clientSck, 0);
+       dup2(clientSck, 1);
+      // dup2(clientSck ,2);
+      execlp(command, command, test, NULL);
+
+
+    }
+
+    // enviar(clientSck,resp.second[0]);
+    waitpid (-1,NULL,0);
   }
 
-  else enviar(clientSck,"2Lo siento, no te he entendido");
+  else enviar(clientSck,"1Lo siento, no te he entendido");
 
   return 0;
 }
@@ -119,12 +131,10 @@ int main() {
       string fromClient = rebre(clientSck);
       cerr << "RECEIVED: " << fromClient << endl;
 
+
       //tractem input
       tractar_frase(fromClient, dm, clientSck);
 
-      close(clientSck);
-
+      //close(clientSck);
+        close(clientSck);
   }
-
-
-}
