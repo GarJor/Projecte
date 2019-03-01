@@ -138,6 +138,3 @@ int main() {
       //close(clientSck);
         close(clientSck);
   }
-
-
-}
