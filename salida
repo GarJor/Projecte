@@ -2,17 +2,23 @@ Interact
 {
 - 0
 Hola, cómo estas?
+Hola
+
 - 1
 De momento no tengo nombre
 - 2
-Nunca es tarde para cumplir tus sueños
+gora Euskadi Askatuta
+llibertat nois d'Alsasu
 - 3
 Mira por la ventana
+- 4
+llibertat presos politics
+a prisión
 }
 Script
 {
 - 0
-apagar_luz.sh
+decir_hora.sh
 - 1
-download_basic.sh
+download_yt.sh
 }

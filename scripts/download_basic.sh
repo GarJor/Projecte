@@ -25,9 +25,13 @@ echo "2TITLE: $TITLE"
 
 wget -O html --no-check-certificate "https://www.easy-youtube-mp3.com/download.php?v=$(cat current | grep "/watch?" | tr "=" "\n" | tail -n 1)"
 
-echo "2SONG: $(cat html | grep "youtubemp3api.com/@download/" | tr "\"" "\n" | grep ".mp3")"
+DESCARGA=$(cat html | grep "youtubemp3api.com/@download/" | tr "\"" "\n" | grep ".mp3")
 
+echo "estem descargant $DESCARGA"
 
+wget -O stalin.mp3 $DESCARGA  && mplayer stalin.mp3
+
+rm stalin.mp3
 
 
 rm current html
